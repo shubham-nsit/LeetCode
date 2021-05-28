@@ -1,0 +1,37 @@
+class Solution {
+public:
+    void marking_islands(vector<vector<char>>&grid,int i,int j, int rows,int cols)
+    {
+        //Checking the boundary cases and if the land is visited or is it water
+        if(i<0 || j<0 || i>=rows || j>=cols || grid[i][j]=='0')
+            return ;
+        grid[i][j]='0'; //Marking the visited land as water
+        
+        //All four directions of the given land
+        marking_islands(grid,i+1,j,rows,cols);
+        marking_islands(grid,i-1,j,rows,cols);
+        marking_islands(grid,i,j+1,rows,cols);
+        marking_islands(grid,i,j-1,rows,cols);
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+        int rows,columns;
+        rows=grid.size();
+        columns=grid[0].size();
+        int island_count=0;
+        
+        //2 for loops for visiting the entire grid 
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<columns;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                    island_count++;
+                    marking_islands(grid,i,j,rows,columns);
+                }
+            }
+        }
+        return island_count;
+    }
+};
