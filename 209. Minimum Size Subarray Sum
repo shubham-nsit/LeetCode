@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int start=0,curr_sum=0,min_len=INT_MAX;
+        int n=nums.size(); //Size of nums
+        
+        for(int end=0;end<n;end++)
+        {
+            if(nums[end]>=target) //In case a single digit is greater than target
+                return 1;
+            
+            curr_sum+=nums[end];
+            
+            while(curr_sum>=target) //When curr_sum equalises or crosses target
+            {
+                min_len=min(min_len,end-start+1); //Updates min_len with minimum length of subarray
+                                                  //Here +1 is done because of zero indexing
+                curr_sum-=nums[start++]; //Updates curr_sum value and increments start
+            }
+        }
+        if(min_len==INT_MAX) // Checks a boundary case i.e if target curr_sum was even able to reach target
+            return 0;
+        return min_len;
+    }
+};
