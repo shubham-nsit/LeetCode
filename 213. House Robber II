@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int ans(vector<int>&nums,int start,int end)
+    {
+        int val1=0,val2=0,amount=0;
+        
+        for(int i=start;i<=end;i++)
+        {
+            //Update max value of amount 
+            amount=max(val2,val1+nums[i]);
+            //Update previous max
+            val1=val2;
+            //Updates new max
+            val2=amount;
+        }
+        return amount;
+    }
+    
+    int rob(vector<int>& nums) {
+         int n=nums.size();
+        if(n==0)
+            return 0;
+        else if(n==1)
+            return nums[0];
+        //We break the problem in 0-(n-2) or 1-(n-1)
+        //Takes the max of max of 0-(n-2) or 1-(n-1)
+        return max(ans(nums,0,n-2),ans(nums,1,n-1));
+        
+    }
+};
