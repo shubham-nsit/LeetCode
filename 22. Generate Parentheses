@@ -1,0 +1,35 @@
+class Solution {
+public:
+    
+    void recursion(int open , int close , string str , vector<string> & ans)
+    {
+        if(open==0 && close==0)
+        {
+            ans.push_back(str);
+            return ;
+        }
+        
+        if(open!=0)
+        {
+            string st1=str;
+            st1.push_back('(');
+            recursion(open-1 , close , st1 , ans);
+        }
+        
+        if(close > open)
+        {
+            string st2=str;
+            st2.push_back(')');
+            recursion(open , close-1 , st2 , ans);
+        }
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        int open = n , close = n;
+        vector<string> ans;
+        string str="";
+        recursion(open , close , str , ans);
+        
+        return ans;
+    }
+};
