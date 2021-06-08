@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root) 
+            return {};
+        vector<vector<int>> result;
+        deque<TreeNode *> Q; // deque was used just because insert() can be used with it
+                             // and it has two pointers start and end
+        Q.push_back(root);
+        bool reverse = true;
+        
+        while(!Q.empty())
+        {
+            int count =Q.size();
+            vector<int> level;
+            deque<TreeNode *> dQ;
+            
+            for(int i=0 ; i<count ; i++)
+            {
+                TreeNode* N=Q.front();
+                level.push_back(N->val);
+                Q.pop_front();
+                if(reverse)
+                {   // To reverse the order i.e. [1]->[2,1]->[3,2,1]->[4,3,2,1]
+                    if(N->left)       
+                        dQ.push_front(N->left);
+                    if(N->right)
+                        dQ.push_front(N->right);
+                }
+                else
+                {   // For normal the order i.e since the previous level was reverse and next level needs to be noraml
+                    if(N->right)
+                        dQ.push_front(N->right);
+                    if(N->left)
+                        dQ.push_front(N->left);
+                }
+            }
+            Q.insert(Q.end() , dQ.begin() , dQ.end());
+            result.push_back(level);
+            reverse=!reverse;
+        }
+        return result;
+    }
+};
