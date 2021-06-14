@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map <string,vector<string>> strmap;
+        for(auto str:strs)
+        {
+            string copy(str);
+            sort(str.begin(),str.end());
+            strmap[str].emplace_back(copy);
+            //strmap[str].push_back(copy);
+        }
+        
+        vector<vector<string>> ans;
+        unordered_map <string,vector<string>>:: iterator it;
+        for(it=strmap.begin();it!=strmap.end();it++)
+        {
+            ans.emplace_back(it->second);  //Does almost the same thing as push_back()
+            //ans.push_back(it->second);
+        }
+        return ans;
+    }
+};
