@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        
+        //For fast Input/Output in C++
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int n=nums.size();
+        if(n==0)
+            return 0;
+        
+        int count=0,i=0,curr_sum=0;
+        unordered_map<int,int> mymap; //Key=PrefixSum and Value=Count of PrefixSum
+        
+        while(i<n)
+        {
+            curr_sum+=nums[i];
+            
+            if(curr_sum==k)
+            {
+                count++;
+            }
+            if(mymap.find(curr_sum-k)!=mymap.end())
+            {
+                count+=mymap[curr_sum-k];
+            }
+            
+            mymap[curr_sum]+=1;
+            i++;
+        }
+        return count;
+    }
+};
