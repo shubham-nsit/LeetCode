@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int n=nums.size()-1;
+        if(nums[0]>=target)
+            return 0;
+        else if(nums[n]<target)
+            return n+1;
+        else
+        {
+            int low=0,mid;
+            while(true)
+            {
+                mid=low+(n-low)/2;
+                if(nums[mid]==target)
+                {
+                    return mid;
+                }
+                if(low==n)
+                {
+                    return (target<nums[mid])?mid:mid+1;
+                }
+                (target<nums[mid])?(n=mid):(low=mid+1);
+            }
+        }
+    }
+};
