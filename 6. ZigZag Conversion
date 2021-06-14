@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows==1 || numRows==1000)
+            return s;
+        vector<string> count_rows(numRows);
+        int d=numRows-1,i;
+        for(i=0;i<s.size();i++)
+        {
+            if(i%(2*d)<d)
+            {
+                count_rows[i%(2*d)]+=s[i];
+            }
+            else
+            {
+                count_rows[d-i%d]+=s[i];
+            }
+        }
+        string ans="";
+        for(string row:count_rows)
+        {
+            ans+=row;
+        }
+        return ans;
+    }
+};
