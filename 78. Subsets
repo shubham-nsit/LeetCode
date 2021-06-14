@@ -1,0 +1,25 @@
+class Solution {
+public:
+    
+    vector<vector<int>>ans;
+    void find_all(vector<int> nums,vector<int> s,int i)
+    {
+        if(i>=nums.size())
+        {
+            ans.push_back(s);
+            return;
+        }
+        s.push_back(nums[i]);
+        find_all(nums,s,i+1);
+        s.pop_back();
+        find_all(nums,s,i+1);
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        vector<int> s;
+        find_all(nums,s,0);
+        return ans;
+    }
+    
+};
